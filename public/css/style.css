@@ -1,0 +1,74 @@
+:root {
+    --primary-pink: #FF69B4;
+    --secondary-pink: #FFB6C1;
+    --bg-pink: #FFF0F5;
+    --text-dark: #4A4A4A;
+}
+
+body {
+    background-color: var(--bg-pink);
+    color: var(--text-dark);
+}
+
+/* Custom Button Styles */
+.btn-primary {
+    background-color: var(--primary-pink);
+    border-color: var(--primary-pink);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-pink);
+    border-color: var(--secondary-pink);
+}
+
+.btn-outline-primary {
+    color: var(--primary-pink);
+    border-color: var(--primary-pink);
+}
+
+/* Animations */
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    border: 2px solid var(--secondary-pink);
+}
+
+.form-control:focus {
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.25);
+}
+
+/* Card Animations */
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Auth Pages */
+.auth-page {
+    background: linear-gradient(135deg, var(--bg-pink) 0%, var(--secondary-pink) 100%);
+} 

@@ -1,0 +1,61 @@
+/* Calendar Customization */
+.fc {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.fc-toolbar-title {
+    color: var(--primary-pink) !important;
+}
+
+.fc-button-primary {
+    background-color: var(--primary-pink) !important;
+    border-color: var(--primary-pink) !important;
+}
+
+.fc-button-primary:hover {
+    background-color: var(--secondary-pink) !important;
+    border-color: var(--secondary-pink) !important;
+}
+
+.fc-daygrid-day.has-birthday {
+    background-color: var(--bg-pink);
+}
+
+.fc-daygrid-day.today {
+    background-color: rgba(255, 182, 193, 0.3) !important;
+}
+
+/* Modal Customization */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    background-color: var(--primary-pink);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+/* Birthday List Items */
+.birthday-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--secondary-pink);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.birthday-item:hover {
+    background-color: var(--bg-pink);
+}
+
+.edit-birthday-btn {
+    color: var(--primary-pink);
+    cursor: pointer;
+} 
