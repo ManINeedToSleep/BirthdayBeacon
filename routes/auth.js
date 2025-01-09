@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import User from '../models/user.js';
-
+import db from '../models/index.js';
+const { User } = db;
 
 const router = express.Router();
 
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { username, email, password, confirmPassword } = req.body;
-
+        
         // Validate input
         const validationError = validateSignupInput(username, email, password, confirmPassword);
         if (validationError) {

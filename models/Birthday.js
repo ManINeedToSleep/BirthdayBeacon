@@ -1,43 +1,45 @@
-import { DataTypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-  const Birthday = sequelize.define('Birthday', {
+  class Birthday extends Model {}
+
+  Birthday.init({
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
-    friendId: {
-      type: DataTypes.UUID,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    dateOfBirth: {
+    birthDate: {
       type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    relationship: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     reminderDays: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 7
     },
     notes: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    status: {
-      type: DataTypes.ENUM('upcoming', 'birthday', 'passed'),
-      defaultValue: 'upcoming'
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
-    timestamps: true
+    sequelize,
+    modelName: 'Birthday',
+    tableName: 'birthdays',
+    timestamps: true,
+    underscored: true
   });
-
-  Birthday.associate = (models) => {
-    Birthday.belongsTo(models.Friends, {
-      foreignKey: 'friendId',
-      as: 'friend'
-    });
-  };
 
   return Birthday;
 };

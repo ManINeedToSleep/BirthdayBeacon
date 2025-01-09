@@ -12,5 +12,24 @@
   "devDependencies": {
     "nodemon": "^3.1.9"
   },
-  "type": "module"
+  "type": "module",
+  "name": "birthdaybeacon",
+  "version": "1.0.0",
+  "description": "BirthdayBeacon is a social birthday tracking application that helps you keep track of your friends' birthdays. Built with Node.js, Express, and MySQL/Sequelize, this app allows users to:",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManINeedToSleep/BirthdayBeacon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManINeedToSleep/BirthdayBeacon/issues"
+  },
+  "homepage": "https://github.com/ManINeedToSleep/BirthdayBeacon#readme"
 }

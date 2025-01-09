@@ -11,6 +11,10 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/dashboard">Birthday Beacon</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" href="/dashboard">Dashboard</a>
+                <a class="nav-link" href="/dashboard/add-friend">Add Friend</a>
+            </div>
             <div class="ms-auto">
                 <span class="me-3">Welcome, <%= user.username %></span>
                 <a href="/auth/logout" class="btn btn-outline-primary">Logout</a>
@@ -44,9 +48,12 @@
                     <!-- Add New Birthday Form -->
                     <form id="birthdayForm">
                         <h6>Add New Birthday</h6>
-                        <input type="hidden" id="selectedDate" name="date">
+                        <input type="hidden" id="selectedDate" name="dateOfBirth">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Friend's Name" required>
+                            <select class="form-control" id="friendId" name="friendId" required>
+                                <option value="">Select Friend</option>
+                                <!-- We'll populate this dynamically -->
+                            </select>
                         </div>
                         <div class="mb-3">
                             <select class="form-control" id="relationship" name="relationship" required>

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         dateClick: handleDateClick,
         eventClick: handleEventClick,
-        events: '/api/birthdays', // Endpoint to fetch birthday events
+        events: '/dashboard/api/birthdays', // Endpoint to fetch birthday events
         eventContent: renderEventContent,
         dayCellDidMount: function(arg) {
             // Highlight today's date
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch birthdays for selected date
     async function fetchBirthdays(date) {
         try {
-            const response = await fetch(`/api/birthdays/${date}`);
+            const response = await fetch(`/dashboard/api/birthdays/${date}`);
             const birthdays = await response.json();
             displayBirthdays(birthdays);
         } catch (error) {
@@ -74,39 +74,71 @@ document.addEventListener('DOMContentLoaded', function() {
 
         birthdays.forEach(birthday => {
             const div = document.createElement('div');
-            div.className = 'birthday-item';
+            div.className = 'birthday-item mb-3';
             div.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <strong>${birthday.name}</strong>
-                        <div class="text-muted">${birthday.relationship}</div>
-                    </div>
-                    <div>
-                        <i class="fas fa-edit edit-birthday-btn" 
-                           onclick="editBirthday(${birthday.id})"></i>
+                        <div class="text-muted">${birthday.email}</div>
+                        ${birthday.relationship ? `<div class="text-muted">Relationship: ${birthday.relationship}</div>` : ''}
                     </div>
                 </div>
             `;
             birthdaysList.appendChild(div);
         });
+        
+        // Debug log to see what data we're receiving
+        console.log('Birthday data:', birthdays);
     }
 
-    // Save birthday
+    // Add this function to populate friends dropdown
+    async function loadAvailableFriends() {
+        try {
+            const response = await fetch('/dashboard/api/available-friends');
+            const friends = await response.json();
+            const friendSelect = document.getElementById('friendId');
+            friendSelect.innerHTML = '<option value="">Select Friend</option>';
+            friends.forEach(friend => {
+                const option = document.createElement('option');
+                option.value = friend.id;
+                option.textContent = friend.username;
+                friendSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error loading friends:', error);
+        }
+    }
+
+    // Call this when the modal is shown
+    document.getElementById('birthdayModal').addEventListener('show.bs.modal', loadAvailableFriends);
+
+    // Update the save birthday handler
     document.getElementById('saveBirthday').addEventListener('click', async () => {
         const formData = new FormData(document.getElementById('birthdayForm'));
+        const data = Object.fromEntries(formData);
+        
         try {
-            const response = await fetch('/api/birthdays', {
+            const response = await fetch('/dashboard/api/birthdays', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(Object.fromEntries(formData))
+                body: JSON.stringify({
+                    friendId: data.friendId,
+                    dateOfBirth: data.dateOfBirth,
+                    relationship: data.relationship,
+                    description: data.notes
+                })
             });
 
             if (response.ok) {
                 calendar.refetchEvents();
                 modal.hide();
                 // Show success message
+            } else {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                // Show error message to user
             }
         } catch (error) {
             console.error('Error saving birthday:', error);

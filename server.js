@@ -7,7 +7,7 @@ import sequelize from './config/database.js';
 // Import models
 import defineUserModel from './models/user.js';
 import defineFriendsModel from './models/Friends.js';
-import defineBirthdayModel from './models/Birthday.js';
+import defineBirthdayModel from './models/birthday.js';
 
 // Import routes
 import indexRoutes from './routes/index.js';
@@ -22,13 +22,14 @@ const app = express();
 
 // Initialize models
 const User = defineUserModel(sequelize);
-const Friends = defineFriendsModel(sequelize);
-const Birthday = defineBirthdayModel(sequelize);
+// const Friends = defineFriendsModel(sequelize);
+// const Birthday = defineBirthdayModel(sequelize);
 
 // Middleware
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Use absolute path for views
 app.use(express.static(path.join(__dirname, 'public'))); // Use absolute path for static files
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
